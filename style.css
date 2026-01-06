@@ -390,6 +390,28 @@ input:focus {
         padding: 12px;
         margin-bottom: 8px;
     }
+  /* Ajuste do botão Adicionar para Mobile */
+    .btn-adicionar {
+        width: 50px;           /* Reduzido levemente para mobile */
+        height: 50px;          /* Mantendo o círculo perfeito */
+        font-size: 1.8rem;     /* Tamanho da fonte mais equilibrado */
+        margin: 20px auto;     /* Margem reduzida para não empurrar muito o rodapé */
+        
+        /* Centralização Absoluta (A correção mestre) */
+        padding-bottom: 0;     /* Removemos o padding que estava desalinhando */
+        display: flex;         /* Usamos Flexbox para centralizar o + */
+        align-items: center;   /* Centraliza verticalmente */
+        justify-content: center; /* Centraliza horizontalmente */
+        
+        /* Melhoria no toque */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Feedback visual ao tocar no celular */
+    .btn-adicionar:active {
+        transform: scale(0.95);
+        background-color: #218838;
+    }
 }
 
 /* Ajuste para celulares muito pequenos (iPhone SE / relógios) */
