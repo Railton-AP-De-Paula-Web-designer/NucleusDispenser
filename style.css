@@ -1,7 +1,4 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+   *{ padding: 0;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 body {
@@ -294,7 +291,7 @@ input:focus {
     font-weight: bold;
     border-radius: 10px;
     margin-bottom: 10px;
-    min-height: 45px;
+    min-height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -307,4 +304,46 @@ input:focus {
     color: white !important;
     box-shadow: none !important;
     transform: translateY(4px);
+}
+
+/* ===================================== */
+/* AJUSTE FINO – TECLADO DE LETRAS        */
+/* SOMENTE VISUAL (SEM QUEBRAR NADA)     */
+/* ===================================== */
+
+/* Grid das letras mais compacto */
+#painel-letras {
+    gap: 6px;
+}
+
+/* Teclas de letras menores que as numéricas */
+#painel-letras .key {
+    height: 48px;              /* antes 60px */
+    font-size: 16px;           /* antes 20px */
+    border-radius: 8px;
+}
+
+/* Botão ESPAÇO proporcional */
+#painel-letras .btn-espaco {
+    height: 48px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+}
+
+/* Melhor equilíbrio visual geral */
+.teclado-container {
+    padding-top: 12px;
+}
+
+/* Mobile fino */
+@media (max-width: 768px) {
+    #painel-letras .key {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    #painel-letras .btn-espaco {
+        height: 44px;
+        font-size: 13px;
+    }
 }

@@ -3,91 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Nucleus Dispenser</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="cabecalho">
-        <nav>
-            <ul>
-                <li>
-                    <a href="https://www.google.com/" target="_blank">
-                        <img class="nav-logo" src="./image/google.png" alt="logo google">
-                        Nucleus Web
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/" target="_blank">
-                        <img class="nav-logo" src="./image/youtube.png" alt="logo youtube">
-                        YouTube
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="container-prancheta">
-            <div class="prancheta-folha">
-                <header class="prancheta-topo">
-                    <h1>NUCLEUS DISPENSER</h1>
-                </header>
-                
-                <div id="lista-compras" class="lista-compras">
-                    <div class="item-linha">
-                        <input type="text" placeholder="Produto" class="input-produto" autocomplete="off" inputmode="none">
-                        <input type="number" step="0.01" placeholder="R$ 0,00" class="input-preco" inputmode="none">
-                    </div>
-                </div>
+<header class="cabecalho">
+    <nav>
+        <ul>
+            <li>
+                <a href="https://www.google.com/" target="_blank">
+                    <img class="nav-logo" src="./image/google.png" alt="Google">
+                    Nucleus Web
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/" target="_blank">
+                    <img class="nav-logo" src="./image/youtube.png" alt="YouTube">
+                    YouTube
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-                <button id="add-item" class="btn-adicionar">+</button>
+<main>
+    <section class="container-prancheta">
+        <div class="prancheta-folha">
 
-                <div class="prancha-rodape">
-                    <div class="total-container">
-                        <span>TOTAL DA COMPRA:</span>
-                        <span id="valor-total">R$ 0,00</span>
-                    </div>
+            <header class="prancheta-topo">
+                <h1>NUCLEUS DISPENSER</h1>
+            </header>
 
-                    <div class="acoes-botoes">
-                        <button id="btn-imprimir" class="btn-imprimir">IMPRIMIR</button>
-
-                        <div class="whatsapp-area">
-                            <input type="tel" id="whatsapp-numero" placeholder="Número do WhatsApp (DDD + Número)">
-                            <button id="btn-enviar" class="btn-enviar">ENVIAR COMPRA</button>
-                        </div>
-                    </div>
+            <div id="lista-compras" class="lista-compras">
+                <div class="item-linha">
+                    <input
+                        type="text"
+                        class="input-produto"
+                        placeholder="Produto"
+                        autocomplete="off"
+                        inputmode="none"
+                    >
+                    <input
+                        type="text"
+                        class="input-preco"
+                        placeholder="R$ 0,00"
+                        autocomplete="off"
+                        inputmode="none"
+                    >
                 </div>
             </div>
-        </section>
-    </main>
 
-    <div id="teclado-custom" class="teclado-container">
-        <div id="teclado-visor" class="teclado-visor">Aguardando...</div>
+            <button id="add-item" class="btn-adicionar">+</button>
 
-        <div id="painel-letras" class="grid-teclado">
-            <button class="key">Q</button><button class="key">W</button><button class="key">E</button><button class="key">R</button><button class="key">T</button>
-            <button class="key">Y</button><button class="key">U</button><button class="key">I</button><button class="key">O</button><button class="key">P</button>
-            <button class="key">A</button><button class="key">S</button><button class="key">D</button><button class="key">F</button><button class="key">G</button>
-            <button class="key">H</button><button class="key">J</button><button class="key">K</button><button class="key">L</button><button class="key">Ç</button>
-            <button class="key">Z</button><button class="key">X</button><button class="key">C</button><button class="key">V</button><button class="key">B</button>
-            <button class="key">N</button><button class="key">M</button>
-            <button class="key btn-espaco">ESPAÇO</button>
+            <footer class="prancha-rodape">
+                <div class="total-container">
+                    <span>TOTAL DA COMPRA:</span>
+                    <span id="valor-total">R$ 0,00</span>
+                </div>
+
+                <div class="acoes-botoes">
+                    <button id="btn-imprimir" class="btn-imprimir">
+                        IMPRIMIR
+                    </button>
+
+                    <div class="whatsapp-area">
+                        <input
+                            type="tel"
+                            id="whatsapp-numero"
+                            placeholder="Número do WhatsApp (DDD + Número)"
+                        >
+                        <button id="btn-enviar" class="btn-enviar">
+                            ENVIAR COMPRA
+                        </button>
+                    </div>
+                </div>
+            </footer>
+
         </div>
+    </section>
+</main>
 
-        <div id="painel-numeros" class="grid-teclado" style="display: none;">
-            <button class="key">1</button><button class="key">2</button><button class="key">3</button>
-            <button class="key">4</button><button class="key">5</button><button class="key">6</button>
-            <button class="key">7</button><button class="key">8</button><button class="key">9</button>
-            <button class="key">.</button><button class="key">0</button><button class="key">00</button>
-        </div>
+<!-- TECLADO CUSTOM -->
+<div id="teclado-custom" class="teclado-container">
 
-        <div class="controles-teclado">
-            <button id="btn-alternar" class="btn-acao">123 / ABC</button>
-            <button class="key btn-apagar">⌫ APAGAR</button>
-            <button id="fechar-teclado" class="btn-concluir">CONCLUIR</button>
-        </div>
+    <div id="teclado-visor" class="teclado-visor">
+        Aguardando...
     </div>
 
-    <script src="script.js"></script>
+    <div id="painel-letras" class="grid-teclado">
+        <button class="key">Q</button><button class="key">W</button><button class="key">E</button><button class="key">R</button><button class="key">T</button>
+        <button class="key">Y</button><button class="key">U</button><button class="key">I</button><button class="key">O</button><button class="key">P</button>
+        <button class="key">A</button><button class="key">S</button><button class="key">D</button><button class="key">F</button><button class="key">G</button>
+        <button class="key">H</button><button class="key">J</button><button class="key">K</button><button class="key">L</button><button class="key">Ç</button>
+        <button class="key">Z</button><button class="key">X</button><button class="key">C</button><button class="key">V</button><button class="key">B</button>
+        <button class="key">N</button><button class="key">M</button>
+        <button class="key btn-espaco">ESPAÇO</button>
+    </div>
+
+    <div id="painel-numeros" class="grid-teclado" style="display:none">
+        <button class="key">1</button><button class="key">2</button><button class="key">3</button>
+        <button class="key">4</button><button class="key">5</button><button class="key">6</button>
+        <button class="key">7</button><button class="key">8</button><button class="key">9</button>
+        <button class="key">.</button><button class="key">0</button><button class="key">00</button>
+    </div>
+
+    <div class="controles-teclado">
+        <button id="btn-alternar" class="btn-acao">123 / ABC</button>
+        <button class="key btn-apagar">⌫ APAGAR</button>
+        <button id="fechar-teclado" class="btn-concluir">CONCLUIR</button>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -134,3 +134,52 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
 // INICIALIZAÇÃO
 atualizarDataHora();
 setInterval(atualizarDataHora, 60000);
+
+/* ===================================== */
+/* FIX BOTÃO + (CAMPOS GÊMEOS)            */
+/* RESOLVE VÍRGULA E PONTO               */
+/* ===================================== */
+
+(function () {
+
+    // Se sua app já usa essa variável, não sobrescreve
+    if (typeof window.campoFocado === 'undefined') {
+        window.campoFocado = null;
+    }
+
+    function registrarCampo(input) {
+        input.addEventListener('focus', () => {
+            window.campoFocado = input;
+        });
+
+        input.addEventListener('click', () => {
+            window.campoFocado = input;
+        });
+    }
+
+    // Registra os campos já existentes
+    document.querySelectorAll('.input-produto, .input-preco').forEach(registrarCampo);
+
+    // Intercepta o botão +
+    const btnAdd = document.getElementById('add-item') || document.querySelector('.btn-adicionar');
+    if (!btnAdd) return;
+
+    btnAdd.addEventListener('click', () => {
+
+        // Aguarda o DOM criar o novo campo
+        setTimeout(() => {
+            const campos = document.querySelectorAll('.input-preco');
+            const ultimoCampo = campos[campos.length - 1];
+
+            if (!ultimoCampo) return;
+
+            registrarCampo(ultimoCampo);
+
+            // força foco correto
+            ultimoCampo.focus();
+            window.campoFocado = ultimoCampo;
+        }, 0);
+
+    });
+
+})();
