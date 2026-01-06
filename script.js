@@ -16,22 +16,31 @@ function atualizarDataHora() {
     dataContainer.innerText = formatada;
 }
 
-// 2. ADICIONAR ITEM
+// 2. ADICIONAR ITEM (CORRIGIDO: CAMPOS GÊMEOS SEM BUG DE VÍRGULA)
 document.getElementById('add-item').addEventListener('click', () => {
     const novaLinha = document.createElement('div');
     novaLinha.className = 'item-linha';
     novaLinha.innerHTML = `
         <input type="text" placeholder="Produto" class="input-produto" autocomplete="off" inputmode="none">
-        <input type="number" step="0.01" placeholder="R$ 0,00" class="input-preco" inputmode="none">
+        <input type="text" placeholder="R$ 0,00" class="input-preco" autocomplete="off" inputmode="decimal">
     `;
     document.getElementById('lista-compras').appendChild(novaLinha);
+    
+    // Foca automaticamente no novo campo de preço criado
+    const novoInputPreco = novaLinha.querySelector('.input-preco');
+    novoInputPreco.focus();
+    campoFocado = novoInputPreco;
 });
 
-// 3. CÁLCULO E ORDENAÇÃO
+// 3. CÁLCULO E ORDENAÇÃO (CORRIGIDO PARA ACEITAR VÍRGULA E PONTO)
 function calcularTotal() {
     const precos = document.querySelectorAll('.input-preco');
     let total = 0;
-    precos.forEach(input => total += (parseFloat(input.value) || 0));
+    precos.forEach(input => {
+        // Substitui vírgula por ponto para o cálculo matemático não quebrar
+        const valorTratado = input.value.replace(',', '.');
+        total += (parseFloat(valorTratado) || 0);
+    });
     document.getElementById('valor-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
 }
 
@@ -39,8 +48,8 @@ function ordenarItens() {
     const lista = document.getElementById('lista-compras');
     const linhas = Array.from(document.querySelectorAll('.item-linha'));
     linhas.sort((a, b) => {
-        const precoA = parseFloat(a.querySelector('.input-preco').value) || 0;
-        const precoB = parseFloat(b.querySelector('.input-preco').value) || 0;
+        const precoA = parseFloat(a.querySelector('.input-preco').value.replace(',', '.')) || 0;
+        const precoB = parseFloat(b.querySelector('.input-preco').value.replace(',', '.')) || 0;
         return precoA - precoB;
     });
     linhas.forEach(linha => lista.appendChild(linha));
@@ -70,7 +79,7 @@ document.addEventListener('focusin', (e) => {
 
 document.querySelectorAll('.key').forEach(botao => {
     botao.addEventListener('mousedown', (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Importante: evita que o input perca o foco ao clicar na tecla
         if (!campoFocado) return;
 
         botao.classList.add('feedback-verde');
@@ -81,6 +90,7 @@ document.querySelectorAll('.key').forEach(botao => {
         } else if (botao.classList.contains('btn-espaco')) {
             campoFocado.value += " ";
         } else {
+            // Aceita o caractere da tecla (seja número, letra, ponto ou vírgula)
             campoFocado.value += botao.innerText;
         }
 
@@ -121,7 +131,8 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
     
     document.querySelectorAll('.item-linha').forEach((linha, i) => {
         const prod = linha.querySelector('.input-produto').value || "Item";
-        const preco = parseFloat(linha.querySelector('.input-preco').value) || 0;
+        const precoRaw = linha.querySelector('.input-preco').value.replace(',', '.') || 0;
+        const preco = parseFloat(precoRaw) || 0;
         if (preco > 0 || prod !== "Item") {
             msg += `${i+1}. *${prod}*: R$ ${preco.toFixed(2).replace('.', ',')}\n`;
         }
@@ -134,52 +145,3 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
 // INICIALIZAÇÃO
 atualizarDataHora();
 setInterval(atualizarDataHora, 60000);
-
-/* ===================================== */
-/* FIX BOTÃO + (CAMPOS GÊMEOS)            */
-/* RESOLVE VÍRGULA E PONTO               */
-/* ===================================== */
-
-(function () {
-
-    // Se sua app já usa essa variável, não sobrescreve
-    if (typeof window.campoFocado === 'undefined') {
-        window.campoFocado = null;
-    }
-
-    function registrarCampo(input) {
-        input.addEventListener('focus', () => {
-            window.campoFocado = input;
-        });
-
-        input.addEventListener('click', () => {
-            window.campoFocado = input;
-        });
-    }
-
-    // Registra os campos já existentes
-    document.querySelectorAll('.input-produto, .input-preco').forEach(registrarCampo);
-
-    // Intercepta o botão +
-    const btnAdd = document.getElementById('add-item') || document.querySelector('.btn-adicionar');
-    if (!btnAdd) return;
-
-    btnAdd.addEventListener('click', () => {
-
-        // Aguarda o DOM criar o novo campo
-        setTimeout(() => {
-            const campos = document.querySelectorAll('.input-preco');
-            const ultimoCampo = campos[campos.length - 1];
-
-            if (!ultimoCampo) return;
-
-            registrarCampo(ultimoCampo);
-
-            // força foco correto
-            ultimoCampo.focus();
-            window.campoFocado = ultimoCampo;
-        }, 0);
-
-    });
-
-})();
