@@ -145,3 +145,20 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
 // INICIALIZAÇÃO
 atualizarDataHora();
 setInterval(atualizarDataHora, 60000);
+
+
+/* === TRAVA DE TECLADO NATIVO PARA NOVOS E ANTIGOS ITENS === */
+const travarTeclado = () => {
+    document.querySelectorAll('.input-produto, .input-preco').forEach(input => {
+        input.setAttribute('inputmode', 'none'); // Bloqueia teclado nativo
+        // Garante que o clique não "acorde" o sistema operacional
+        input.onclick = () => input.focus(); 
+    });
+};
+
+// VIGIA A LISTA: Toda vez que um item novo entrar, ele trava o teclado nativo
+const vigiaLista = new MutationObserver(() => travarTeclado());
+vigiaLista.observe(document.getElementById('lista-compras'), { childList: true });
+
+// Executa a primeira vez para os campos que já estão na tela
+travarTeclado();
