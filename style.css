@@ -336,14 +336,72 @@ input:focus {
 }
 
 /* Mobile fino */
-@media (max-width: 768px) {
-    #painel-letras .key {
-        height: 44px;
-        font-size: 15px;
+@media screen and (max-width: 768px) {
+    /* 1. Ajuste de Espaçamento Superior */
+    .container-prancheta {
+        margin-top: 70px;
+        width: 98%;
+        padding: 0 5px;
     }
-
-    #painel-letras .btn-espaco {
-        height: 44px;
-        font-size: 13px;
+    /* 2. Prancheta mais compacta */
+    .prancheta-folha {
+        padding: 15px;
+        border-radius: 10px;
+        min-height: 60vw;
+    }
+    /* 3. Inputs Maiores para Touch */
+    .input-produto, .input-preco {
+        font-size: 1.1rem;
+        padding: 12px 5px;
+    }
+    /* 4. Teclado Otimizado para o Polegar */
+    .teclado-container {
+        padding: 10px 5px 25px 5px;
+    }
+    /* Grid de Letras: 6 colunas fica mais fácil de tocar */
+    #painel-letras {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 5px;
+    }
+ /* Teclas de Ação Empilhadas se necessário */
+ .controles-teclado {
+    gap: 8px;
+ }
+ .key {
+    height: 52px;
+    font-size: 1.1rem;
+ }
+ /* 5. Ajuste dos Botões de Ação Inferiores */
+ .acoes-botoes {
+    gap: 10px;
+ }
+    .btn-imprimir, .btn-enviar {
+      height: 55px;
+      font-size: 1rem;
+    }
+    /* 6. Esconder elementos que ocupam espaço desnecessário no mobile */
+    .prancheta-topo h1 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    /* Fix para o visor do teclado não sumir */
+    .teclado-visor {
+        font-size: 1rem;
+        padding: 12px;
+        margin-bottom: 8px;
     }
 }
+
+/* Ajuste para celulares muito pequenos (iPhone SE / relógios) */
+@media screen and (max-width: 320px) {
+    #painel-letras {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    .key {
+        height: 45px;
+        font-size: 0.9rem;
+    }
+}
+
+ 
+
