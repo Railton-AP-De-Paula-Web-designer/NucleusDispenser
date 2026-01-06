@@ -398,7 +398,7 @@ input:focus {
         margin: 20px auto;     /* Margem reduzida para não empurrar muito o rodapé */
         
         /* Centralização Absoluta (A correção mestre) */
-        padding-bottom: -3px;     /* Removemos o padding que estava desalinhando */
+        padding-bottom: 7px;     /* Removemos o padding que estava desalinhando */
         display: flex;         /* Usamos Flexbox para centralizar o + */
         align-items: center;   /* Centraliza verticalmente */
         justify-content: center; /* Centraliza horizontalmente */
